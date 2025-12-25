@@ -1,3 +1,21 @@
+# 1. Set the Root
+set -gx PYENV_ROOT $HOME/.pyenv
+
+# 2. Add pyenv executable to path
+fish_add_path $PYENV_ROOT/bin
+
+# 3. Add pyenv shims to path (The Missing Piece)
+fish_add_path $PYENV_ROOT/shims
+
+# 4. Initialize pyenv
+if command -v pyenv > /dev/null
+    pyenv init - fish | source
+    status is-interactive; and pyenv init - fish | source
+    status is-interactive; and pyenv virtualenv-init - fish | source	
+end
+
+
+
 function fish_prompt -d "Write out the prompt"
     # This shows up as USER@HOST /home/user/ >, with the directory colored
     # $USER and $hostname are set by fish, so you can just use them
